@@ -82,7 +82,9 @@ do_stop() {
 		done
 	fi
 
-	rmmod -w zram  1>/dev/null 2>&1
+	rmmod -w zram  1>/dev/null 2>&1 || \
+		rmmod zram 1>/dev/null 2>&1 || \
+			modprobe -r zram 1>/dev/null 2>&1
 	RETVAL=$?
 
 	return $RETVAL
